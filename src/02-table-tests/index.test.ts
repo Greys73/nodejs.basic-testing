@@ -15,11 +15,11 @@ const testCases = [
   { a: 1, b: 2, action: Action.Divide, expected: 0.5 },
   { a: 3, b: 2, action: Action.Exponentiate, expected: 9 },
   { a: 2, b: 3, action: '#', expected: null },
-  { a: '2', b: 3, action: Action.Add, expected: null },
+  { a: 'a', b: 3, action: Action.Add, expected: null },
 ];
 
 describe.each(testCases)('simpleCalculator', ({ a, b, action, expected }) => {
-  test('should blah-blah', () => {
+  test(`should return ${expected}, when ${a} ${action} ${b}`, () => {
     expect(simpleCalculator({ a, b, action })).toBe(expected);
   });
 });
