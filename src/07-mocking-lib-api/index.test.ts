@@ -13,9 +13,8 @@ jest.mock('axios', () => {
         get: async (path: string) => {
           const result =
             `${config.baseURL}/${path}` === api.url
-              ? { data: api.data }
+              ? { data: api }
               : { data: null };
-          console.log(api.url);
           return result;
         },
       };
@@ -43,15 +42,14 @@ describe('throttledGetDataFromApi', () => {
   });
 
   test('should perform request to correct provided url', async () => {
-    jest.spyOn(console, 'log').mockImplementation();
     const relativePath = 'testpath';
-    await throttledGetDataFromApi(relativePath);
-    expect(console.log).toHaveBeenCalledWith(api.url);
+    const result = await throttledGetDataFromApi(relativePath);
+    expect(result.url).toBe(api.url);
   });
 
   test('should return response data', async () => {
     const relativePath = 'testpath';
     const result = await throttledGetDataFromApi(relativePath);
-    expect(result).toBe(api.data);
+    expect(result.data).toBe(api.data);
   });
 });
